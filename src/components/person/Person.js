@@ -9,8 +9,8 @@ export default function Person() {
   const [nameValid, setNameValid] = useState(true);
   const [emailValid, setEmailValid] = useState(true);
   const [phoneValid, setPhoneValid] = useState(true);
+  const [adresseValid, setAdresseValid] = useState(true);
   const [topicError, setTopicError] = useState('');
-
 
   const validateName = (event) => {
     setNameValid(event.target.value.trim() !== '');
@@ -19,6 +19,10 @@ export default function Person() {
     if(event.target.value) {
       event.target.classList.remove('error');
     }
+  }
+
+  const validateAdress = (event) => {
+    setAdresseValid(event.target.value.trim() !== '');
   }
 
   const validateEmail = (event) => {
@@ -92,6 +96,21 @@ export default function Person() {
           required
         />
         {!phoneValid && <div className="invalid-feedback">Bitte geben Sie eine gültige Telefonnummer ein.</div>}
+      </FloatingLabel>
+
+      <FloatingLabel controlId="floatingInputAdresse" label="" className="mb-3">
+        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1"> 
+          <Form.Control as="textarea" 
+          rows={3} 
+          data-field="person_adresse"
+          placeholder='Adresse'
+          className={`adresse ${adresseValid ? '' : 'is-invalid'}`}
+          onBlur={validateAdress}
+          onChange={validateEmptys}
+          required
+          />
+        </Form.Group>
+        {!adresseValid && <div className="invalid-feedback">Bitte geben Sie eine gültige Adresse ein.</div>}
       </FloatingLabel>
 
       <Form.Select onChange={validateTopic} aria-label="Default select example" data-field="topic" className={topicError ? 'error' : ''}>
