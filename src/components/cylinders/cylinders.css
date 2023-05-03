@@ -1,0 +1,43 @@
+.cylinders-block {
+  background: #efefef;
+  padding: 0 3rem 4rem;
+  margin: 0 auto;
+  box-sizing: border-box;
+}
+
+.headline {
+  font-size: 24px;
+  text-align: left;
+  color: #efefef;
+}
+
+.header-app {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  padding: 2rem;
+  box-sizing: border-box;
+  background: red;
+  margin-bottom: 4rem;
+}
+
+.company {
+  max-width: 100px;
+}
+.company img {
+  object-fit: cover;
+  width: 100%;
+}
+
+button {
+  margin-top: 10px;
+  margin-bottom: 1rem;
+  margin-right: 5px;
+}
+button#send-response {
+  margin-left: 4rem;
+}
+
+.mr-2 {
+  margin-right: 8px;
+}

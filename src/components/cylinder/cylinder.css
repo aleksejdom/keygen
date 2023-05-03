@@ -1,0 +1,12 @@
+input.error {
+  border: 3px solid red;
+}
+
+td.option-buttons {
+  display: flex;
+  flex-direction: column;
+}
+.validation-message {
+  font-weight: 400;
+  color: red;
+}
