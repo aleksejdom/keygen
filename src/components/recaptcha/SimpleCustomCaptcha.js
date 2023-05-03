@@ -1,46 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 
-const SimpleCustomCaptcha = () => {
-  const [captchaAnswer, setCaptchaAnswer] = useState('');
-  const [userAnswer, setUserAnswer] = useState('');
+function SimpleCustomCaptcha({ setCaptchaAnswer }) {
+  const [captchaQuestion, setCaptchaQuestion] = useState('');
+
+  useEffect(() => {
+    generateCaptcha();
+  }, []);
 
   const generateCaptcha = () => {
-    const num1 = Math.floor(Math.random() * 10) + 1;
-    const num2 = Math.floor(Math.random() * 10) + 1;
-    setCaptchaAnswer(num1 + num2);
-    return `${num1} + ${num2}`;
-  };
+    const number1 = Math.floor(Math.random() * 10);
+    const number2 = Math.floor(Math.random() * 10);
+    const newCaptchaQuestion = `${number1} + ${number2}`;
+    setCaptchaQuestion(newCaptchaQuestion);
+  }
 
-  const [captchaQuestion, setCaptchaQuestion] = useState(generateCaptcha());
-
-  const handleChange = (e) => {
-    setUserAnswer(e.target.value);
-  };
-
-  const handleSubmit = () => {
-    if (parseInt(userAnswer) === captchaAnswer) {
-      console.log('Form submitted successfully');
-    } else {
-      console.log('Incorrect captcha answer, please try again');
-    }
-  };
-
-  const refreshCaptcha = () => {
-    setCaptchaQuestion(generateCaptcha());
-    setUserAnswer('');
-  };
+  const onAnswerChange = (event) => {
+    const answer = event.target.value;
+    setCaptchaAnswer(answer);
+  }
 
   return (
-    <div>
-      <h1>Bitte sagen Sie uns die Lösung:</h1>
-      <div>
-        <span>{captchaQuestion}</span>
-        <button onClick={refreshCaptcha}>Refresh</button>
+    <div className="simple-custom-captcha">
+      <div className="captcha-question">
+        {captchaQuestion}
       </div>
-      <input type="text" value={userAnswer} onChange={handleChange} />
-      <button onClick={handleSubmit}>Submit</button>
+      <input
+        type="text"
+        className="captcha-answer"
+        placeholder="Geben Sie Ihre Antwort ein"
+        onChange={onAnswerChange}
+      />
     </div>
   );
-};
+}
 
 export default SimpleCustomCaptcha;

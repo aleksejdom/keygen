@@ -8,7 +8,7 @@ import { faGear, faTrashCan, faKey, faLock } from '@fortawesome/free-solid-svg-i
 import Cylinder from '../cylinder/Cylinder';
 import Keys from '../keys/Keys';
 import CheckboxKeyContext from '../CheckboxKeyContext';
-import Person from '../person/Person';
+import Person from '../person/Person'; 
 import logo from './SD_Logo.png';
 import SimpleCustomCaptcha from '../recaptcha/SimpleCustomCaptcha';
 
@@ -18,6 +18,9 @@ function Cylinders() {
   const [schluesselnummer, setSchluesselnummer] = useState(1);
   const [checkboxKeyCount, setCheckboxKeyCount] = useState(1);
   const [visibility, setVisibility] = useState(true); 
+  const [userAnswer, setUserAnswer] = useState('');
+
+
 
   useEffect(() => {
     const newCylinders = [
@@ -66,7 +69,8 @@ function Cylinders() {
       console.log('Die Anzahl der Schlüssel kann nicht unter 0 gehen.');
     }
   };
-   
+  
+  
 
   const sendResponse = () => {
     const currentDate = new Date().toISOString();
@@ -139,11 +143,15 @@ function Cylinders() {
       .then(data => console.log('Success:', data))
       .catch(error => console.error('Error:', error));
   };
- 
+  
+  const validateCaptcha = () => {
+    return parseInt(userAnswer) !== 0;
+  };
+
   const validateFields = () => {
     const requiredFields = document.querySelectorAll('[data-field]');
     let allFieldsValid = true;
-  
+
     requiredFields.forEach((field) => {
       if (!field.value || field.value == 'Bestellung oder Anfrage?') {
         field.classList.add('error');
@@ -152,12 +160,16 @@ function Cylinders() {
         field.classList.remove('error');
       }
     });
-  
-    if (allFieldsValid && requiredFields.length > 7) {
+
+    if (allFieldsValid && requiredFields.length > 7 && validateCaptcha()) {
       sendResponse();
       checkVisibility();
     } else {
-      console.error('Bitte füllen Sie alle erforderlichen Felder aus.');
+      if (!validateCaptcha()) {
+        console.error('Bitte geben Sie die korrekte Captcha-Antwort ein.');
+      } else {
+        console.error('Bitte füllen Sie alle erforderlichen Felder aus.');
+      }
     }
   };
 
@@ -176,6 +188,7 @@ function Cylinders() {
         {visibility && 
         <Person />
         }
+        
         {visibility && 
         <Table striped bordered hover responsive>
           <thead>
@@ -232,9 +245,9 @@ function Cylinders() {
                     ><FontAwesomeIcon icon={faGear} className="mr-2"/>
                     Konfiguration Absenden
                   </Button>
-                    {visibility && (
-                     <SimpleCustomCaptcha />
-                    )}
+                  
+                  {visibility && <SimpleCustomCaptcha setCaptchaAnswer={setUserAnswer} />}
+
                   </div>
                 </div>
               </td>
