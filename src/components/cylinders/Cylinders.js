@@ -66,10 +66,7 @@ function Cylinders() {
       console.log('Die Anzahl der Schlüssel kann nicht unter 0 gehen.');
     }
   };
-  
-  const handleRecaptchaChange = (response) => {
-    setRecaptchaResponse(response);
-  };
+   
 
   const sendResponse = () => {
     const currentDate = new Date().toISOString();
