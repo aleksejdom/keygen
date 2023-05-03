@@ -19,6 +19,8 @@ function Cylinders() {
   const [checkboxKeyCount, setCheckboxKeyCount] = useState(1);
   const [visibility, setVisibility] = useState(true); 
   const [userAnswer, setUserAnswer] = useState('');
+  const [captchaValid, setCaptchaValid] = useState(false);
+
 
 
 
@@ -70,7 +72,7 @@ function Cylinders() {
     }
   };
   
-  
+   
 
   const sendResponse = () => {
     const currentDate = new Date().toISOString();
@@ -145,7 +147,7 @@ function Cylinders() {
   };
   
   const validateCaptcha = () => {
-    return parseInt(userAnswer) !== 0;
+    return captchaValid;
   };
 
   const validateFields = () => {
@@ -166,6 +168,7 @@ function Cylinders() {
       checkVisibility();
     } else {
       if (!validateCaptcha()) {
+
         console.error('Bitte geben Sie die korrekte Captcha-Antwort ein.');
       } else {
         console.error('Bitte füllen Sie alle erforderlichen Felder aus.');
@@ -237,7 +240,7 @@ function Cylinders() {
                   
                   </div>
                   <div className='opt-2'>
-
+                  {visibility && <SimpleCustomCaptcha setCaptchaAnswer={setUserAnswer} isValid={setCaptchaValid}/>}
                   <Button
                     variant="success"
                     id="send-response"
@@ -246,7 +249,7 @@ function Cylinders() {
                     Konfiguration Absenden
                   </Button>
                   
-                  {visibility && <SimpleCustomCaptcha setCaptchaAnswer={setUserAnswer} />}
+                 
 
                   </div>
                 </div>

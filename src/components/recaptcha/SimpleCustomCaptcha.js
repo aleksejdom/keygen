@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from 'react';
+import Form from 'react-bootstrap/Form';
+import './SimpleCustomCaptcha.css';
 
-function SimpleCustomCaptcha({ setCaptchaAnswer }) {
+function SimpleCustomCaptcha({ setCaptchaAnswer, isValid }) {
   const [captchaQuestion, setCaptchaQuestion] = useState('');
+  const [correctAnswer, setCorrectAnswer] = useState(null);
+  const [inputStyle, setInputStyle] = useState({});
 
   useEffect(() => {
     generateCaptcha();
@@ -12,25 +16,29 @@ function SimpleCustomCaptcha({ setCaptchaAnswer }) {
     const number2 = Math.floor(Math.random() * 10);
     const newCaptchaQuestion = `${number1} + ${number2}`;
     setCaptchaQuestion(newCaptchaQuestion);
+    setCorrectAnswer(number1 + number2);
   }
 
   const onAnswerChange = (event) => {
     const answer = event.target.value;
-    setCaptchaAnswer(answer);
+    if (parseInt(answer) === correctAnswer) {
+      setInputStyle({});
+      setCaptchaAnswer(answer);
+      isValid(true);
+    }  
+    else {
+      setInputStyle({ border: '2px solid red' });
+      isValid(false);
+    }
   }
 
   return (
-    <div className="simple-custom-captcha">
-      <div className="captcha-question">
-        {captchaQuestion}
-      </div>
-      <input
-        type="text"
-        className="captcha-answer"
-        placeholder="Geben Sie Ihre Antwort ein"
-        onChange={onAnswerChange}
-      />
-    </div>
+    <Form.Group className="mb-3 simple-custom-captcha" controlId="captchaSimple">
+        <Form.Label>{captchaQuestion}</Form.Label>
+        <Form.Control type="number" placeholder="Geben Sie Ihre Antwort ein"
+        onChange={onAnswerChange} style={inputStyle} /> 
+      </Form.Group>
+
   );
 }
 
