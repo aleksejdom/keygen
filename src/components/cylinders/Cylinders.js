@@ -164,11 +164,12 @@ function Cylinders() {
     });
 
     if (allFieldsValid && requiredFields.length > 7 && validateCaptcha()) {
+      document.querySelector('input#captchaSimple').classList.remove('error');
       sendResponse();
       checkVisibility();
     } else {
       if (!validateCaptcha()) {
-
+        document.querySelector('input#captchaSimple').classList.add('error');
         console.error('Bitte geben Sie die korrekte Captcha-Antwort ein.');
       } else {
         console.error('Bitte füllen Sie alle erforderlichen Felder aus.');

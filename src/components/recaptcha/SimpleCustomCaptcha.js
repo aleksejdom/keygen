@@ -23,6 +23,7 @@ function SimpleCustomCaptcha({ setCaptchaAnswer, isValid }) {
     const answer = event.target.value;
     if (parseInt(answer) === correctAnswer) {
       setInputStyle({});
+      event.target.classList.remove('error')
       setCaptchaAnswer(answer);
       isValid(true);
     }  
