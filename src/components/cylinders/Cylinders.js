@@ -4,6 +4,8 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear, faTrashCan, faKey, faLock } from '@fortawesome/free-solid-svg-icons';
+import ReCAPTCHA from "react-google-recaptcha";
+
 
 
 
@@ -20,7 +22,7 @@ function Cylinders() {
   const [schluesselnummer, setSchluesselnummer] = useState(1);
   const [checkboxKeyCount, setCheckboxKeyCount] = useState(1);
   const [visibility, setVisibility] = useState(true);
-  
+  const [recaptchaResponse, setRecaptchaResponse] = useState(null);
 
   useEffect(() => {
     const newCylinders = [
@@ -60,6 +62,7 @@ function Cylinders() {
     setSchluesselnummer(schluesselnummer + 1);
     setCheckboxKeyCount(checkboxKeyCount + 1); 
   };
+  
   const handleRemoveKeys = () => {
     if (schluesselnummer > 0 && checkboxKeyCount > 0) {
       setSchluesselnummer(schluesselnummer - 1);
@@ -68,11 +71,13 @@ function Cylinders() {
       console.log('Die Anzahl der Schlüssel kann nicht unter 0 gehen.');
     }
   };
+  
+  const handleRecaptchaChange = (response) => {
+    setRecaptchaResponse(response);
+  };
+
   const sendResponse = () => {
-    
-
     const currentDate = new Date().toISOString();
-
     const personInfo = {};
     Array.from(document.querySelectorAll('.person-data [data-field]')).forEach(input => {
       const field = input.getAttribute('data-field');
@@ -129,7 +134,13 @@ function Cylinders() {
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({cylinders: cylindersData, person: personInfo, keys: keyData, date: currentDate}),
+      body: JSON.stringify({
+        cylinders: cylindersData, 
+        person: personInfo, 
+        keys: keyData, 
+        date: currentDate,
+        recaptchaResponse: recaptchaResponse
+      }),
     };
   
     fetch('https://formspree.io/f/xnqywvny', requestOptions)
@@ -159,6 +170,7 @@ function Cylinders() {
     }
   };
 
+    
   const value = useMemo(() => ({ checkboxKeyCount, increaseCheckboxKeyCount: handleAddKeys }), [checkboxKeyCount]);
 
   return (
@@ -195,35 +207,47 @@ function Cylinders() {
             <tr>
               <td colSpan={5 + schluesselnummer}>
                 <div className="options">
+                  <div className='opt-1'>
+
                   <Button
                     variant="primary"
                     id="add-cylinder"
                     onClick={handleAddCylinder}
-                  ><FontAwesomeIcon icon={faLock} className='mr-2'/>
+                    ><FontAwesomeIcon icon={faLock} className='mr-2'/>
                     Cylinder hinzufügen
                   </Button>
                   <Button
                     variant="secondary"
                     id="add-key"
                     onClick={handleAddKeys}
-                  ><FontAwesomeIcon icon={faKey} className='mr-2'/>
+                    ><FontAwesomeIcon icon={faKey} className='mr-2'/>
                     Schlüssel hinzufügen
                   </Button>
                   <Button
                     variant="danger"
                     id="remove-key"
                     onClick={handleRemoveKeys}
-                  ><FontAwesomeIcon icon={faTrashCan} className='mr-2'/>
+                    ><FontAwesomeIcon icon={faTrashCan} className='mr-2'/>
                     Schlüssel löschen
                   </Button> 
                   
+                  </div>
+                  <div className='opt-2'>
+
                   <Button
                     variant="success"
                     id="send-response"
                     onClick={validateFields}
-                  ><FontAwesomeIcon icon={faGear} className="mr-2"/>
+                    ><FontAwesomeIcon icon={faGear} className="mr-2"/>
                     Konfiguration Absenden
                   </Button>
+                  {visibility && (
+                    <ReCAPTCHA
+                    sitekey="your_site_key"
+                    onChange={handleRecaptchaChange}
+                    />
+                    )}
+                  </div>
                 </div>
               </td>
             </tr>

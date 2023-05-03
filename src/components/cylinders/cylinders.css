@@ -35,9 +35,13 @@ button {
   margin-right: 5px;
 }
 button#send-response {
-  margin-left: 4rem;
+  margin-left: 0rem;
+  margin-top: 10px;
 }
-
+.options {
+  display: flex;
+  justify-content: space-between;
+}
 .mr-2 {
   margin-right: 8px;
 }
