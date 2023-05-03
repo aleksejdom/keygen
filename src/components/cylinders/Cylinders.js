@@ -96,13 +96,13 @@ function Cylinders() {
 
       for (let i = 1; i <= schluesselnummer; i++) {
         const keyCountField = `schluessel_anzahl-key-${i}`;
-        /* const keyNameField = `key_name-${i}`; */
+        const keyNameField = `schluessel_name-${i}`;
         const keyCountElement = document.querySelector(`[data-field="schluessel_anzahl"][name="key-${i}"]`);
-        /* const keyNameElement = document.querySelector(`[data-field="key_name"][name="key-${i}"]`); */
+        const keyNameElement = document.querySelector(`[data-field="schluessel_name"][name="key-${i}"]`);
 
-        if (keyCountElement) {
+        if (keyCountElement && keyNameElement) {
           keyData[keyCountField] = keyCountElement.value;
-          /* keyData[keyNameField] = keyNameElement.value; */
+          keyData[keyNameField] = keyNameElement.value;
         }
       }
 

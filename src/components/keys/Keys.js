@@ -14,7 +14,7 @@ function Keys({ schluesselnummer }) {
           placeholder="Bezeichnung"
           defaultValue={`Schlüssel-${schluesselnummer}`}
           aria-describedby="inputGroup-sizing-sm"
-          data-field="key_name"
+          data-field="schluessel_name"
           name={`key-${schluesselnummer}`}
           />
         </FloatingLabel>
