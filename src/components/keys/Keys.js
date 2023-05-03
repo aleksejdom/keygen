@@ -27,7 +27,7 @@ function Keys({ schluesselnummer }) {
             aria-label="Small"
             aria-describedby="inputGroup-sizing-sm"
             name={`key-${schluesselnummer}`}
-            data-field="key_count"
+            data-field="schluessel_anzahl"
           />
         </FloatingLabel> 
     </>

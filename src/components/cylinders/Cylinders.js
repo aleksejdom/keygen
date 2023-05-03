@@ -86,9 +86,9 @@ function Cylinders() {
       const keyData = {};
 
       for (let i = 1; i <= schluesselnummer; i++) {
-        const keyCountField = `key_count-${i}`;
+        const keyCountField = `schluessel_anzahl-key-${i}`;
         /* const keyNameField = `key_name-${i}`; */
-        const keyCountElement = document.querySelector(`[data-field="key_count"][name="key-${i}"]`);
+        const keyCountElement = document.querySelector(`[data-field="schluessel_anzahl"][name="key-${i}"]`);
         /* const keyNameElement = document.querySelector(`[data-field="key_name"][name="key-${i}"]`); */
 
         if (keyCountElement) {
@@ -140,7 +140,7 @@ function Cylinders() {
       }),
     };
   
-    fetch('https://formspree.io/f/xnqywvny', requestOptions)
+    fetch('_https://formspree.io/f/xnqywvny', requestOptions)
       .then(response => response.json())
       .then(data => console.log('Success:', data))
       .catch(error => console.error('Error:', error));

@@ -82,7 +82,7 @@ function Cylinder({ nextKey, onRemove }) {
           aria-label="Default select example"
           value={cylinderType}
           onChange={handleCylinderTypeChange}
-          data-field="cylinder_type"
+          data-field="zylinder_typ"
         >
           {cylinderTypes.map((type) => (
             <option key={type.value} value={type.label}>
@@ -101,7 +101,7 @@ function Cylinder({ nextKey, onRemove }) {
               className="aussen-number"
               aria-label="Small"
               aria-describedby="inputGroup-sizing-sm"
-              data-field="length_outside"
+              data-field="zyl_laenge_aussen"
               onChange={validateNumberAussen}
             />
             {validationMessageAussen && <div className="validation-message">{validationMessageAussen}</div>}
@@ -116,7 +116,7 @@ function Cylinder({ nextKey, onRemove }) {
                 className="innen-number"
                 aria-label="Small"
                 aria-describedby="inputGroup-sizing-sm"
-                data-field="length_inside"
+                data-field="zyl_laenge_innen"
                 onChange={validateNumberInnen} 
               />
               {validationMessageInnen && <div className="validation-message">{validationMessageInnen}</div>}
@@ -132,7 +132,7 @@ function Cylinder({ nextKey, onRemove }) {
           placeholder="1"
           defaultValue={1}
           className="cylinder-count"
-          data-field="cylinder_count"
+          data-field="zylinder_anzahl"
           aria-label="Small"
           aria-describedby="inputGroup-sizing-sm"
         />
