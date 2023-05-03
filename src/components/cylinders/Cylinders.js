@@ -72,10 +72,19 @@ function Cylinders() {
     }
   };
   
-   
+  function getFormattedDate() {
+    const date = new Date();
+    const day = date.getDate();
+    const month = date.getMonth() + 1; // Da die Monate von 0 bis 11 gezählt werden
+    const year = date.getFullYear();
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+  
+    return `${day}.${month}.${year} - ${hours}:${minutes}`;
+  } 
 
   const sendResponse = () => {
-    const currentDate = new Date().toISOString();
+    const currentDate = getFormattedDate();
     const personInfo = {};
     Array.from(document.querySelectorAll('.person-data [data-field]')).forEach(input => {
       const field = input.getAttribute('data-field');
@@ -140,7 +149,7 @@ function Cylinders() {
       }),
     };
   
-    fetch('_https://formspree.io/f/xnqywvny', requestOptions)
+    fetch('https://formspree.io/f/xnqywvny', requestOptions)
       .then(response => response.json())
       .then(data => console.log('Success:', data))
       .catch(error => console.error('Error:', error));
