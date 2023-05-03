@@ -145,7 +145,7 @@ function Cylinder({ nextKey, onRemove }) {
           variant="danger" 
           id="remove-cylinder"
           onClick={handleRemove}
-        ><FontAwesomeIcon icon={faTrashCan} className='mr-2'/>Cylinder löschen</Button>
+        ><FontAwesomeIcon icon={faTrashCan} className='mr-2'/>Zylinder löschen</Button>
       </td>
 
     </tr>

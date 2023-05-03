@@ -231,7 +231,7 @@ function Cylinders() {
                     id="add-cylinder"
                     onClick={handleAddCylinder}
                     ><FontAwesomeIcon icon={faLock} className='mr-2'/>
-                    Cylinder hinzufügen
+                    Zylinder hinzufügen
                   </Button>
                   <Button
                     variant="secondary"
