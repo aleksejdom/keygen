@@ -40,7 +40,11 @@ button#send-response {
 }
 .options {
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-start;
+  flex-direction: column;
+}
+.opt-2 {
+  margin-top: 2rem;
 }
 .mr-2 {
   margin-right: 8px;
