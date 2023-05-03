@@ -222,7 +222,7 @@ function Cylinders() {
           <tbody>{cylinders}</tbody>
           <tfoot>
             <tr>
-              <td colSpan={5 + schluesselnummer}>
+              <td colSpan={12}>
                 <div className="options">
                   <div className='opt-1'>
 
