@@ -4,25 +4,20 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faGear, faTrashCan, faKey, faLock } from '@fortawesome/free-solid-svg-icons';
-import ReCAPTCHA from "react-google-recaptcha";
-
-
-
-
+  
 import Cylinder from '../cylinder/Cylinder';
 import Keys from '../keys/Keys';
 import CheckboxKeyContext from '../CheckboxKeyContext';
 import Person from '../person/Person';
 import logo from './SD_Logo.png';
- 
+import SimpleCustomCaptcha from '../recaptcha/SimpleCustomCaptcha';
 
 function Cylinders() {
   const [cylinders, setCylinders] = useState([]);
   const [nextKey, setNextKey] = useState(1);
   const [schluesselnummer, setSchluesselnummer] = useState(1);
   const [checkboxKeyCount, setCheckboxKeyCount] = useState(1);
-  const [visibility, setVisibility] = useState(true);
-  const [recaptchaResponse, setRecaptchaResponse] = useState(null);
+  const [visibility, setVisibility] = useState(true); 
 
   useEffect(() => {
     const newCylinders = [
@@ -138,8 +133,7 @@ function Cylinders() {
         cylinders: cylindersData, 
         person: personInfo, 
         keys: keyData, 
-        date: currentDate,
-        recaptchaResponse: recaptchaResponse
+        date: currentDate
       }),
     };
   
@@ -241,11 +235,8 @@ function Cylinders() {
                     ><FontAwesomeIcon icon={faGear} className="mr-2"/>
                     Konfiguration Absenden
                   </Button>
-                  {visibility && (
-                    <ReCAPTCHA
-                    sitekey="6LfTA9olAAAAAKFBestC2-Ll-PrwARUZlbvLJJr-"
-                    onChange={handleRecaptchaChange}
-                    />
+                    {visibility && (
+                     <SimpleCustomCaptcha />
                     )}
                   </div>
                 </div>
